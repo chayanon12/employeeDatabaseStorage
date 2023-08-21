@@ -57,16 +57,16 @@
             this.lblSucess.ForeColor = System.Drawing.Color.Lime;
             this.lblSucess.Location = new System.Drawing.Point(557, 46);
             this.lblSucess.Name = "lblSucess";
-            this.lblSucess.Size = new System.Drawing.Size(105, 29);
+            this.lblSucess.Size = new System.Drawing.Size(146, 29);
             this.lblSucess.TabIndex = 1;
-            this.lblSucess.Text = "Sucess!";
+            this.lblSucess.Text = "Connected!";
             // 
             // lblError
             // 
             this.lblError.AutoSize = true;
             this.lblError.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblError.ForeColor = System.Drawing.Color.Red;
-            this.lblError.Location = new System.Drawing.Point(482, 46);
+            this.lblError.Location = new System.Drawing.Point(516, 46);
             this.lblError.Name = "lblError";
             this.lblError.Size = new System.Drawing.Size(220, 29);
             this.lblError.TabIndex = 2;
