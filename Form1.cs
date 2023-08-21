@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
+//ADD insert name and Lastname
 namespace employeeDatabaseStorage
 {
     public partial class Form1 : Form
@@ -51,6 +51,7 @@ namespace employeeDatabaseStorage
             {
                 string name = txtName.Text;
                 string lastName = txtLastname.Text;
+                string address = txtAddress.Text;
 
                 if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(lastName))
                 {
@@ -62,11 +63,12 @@ namespace employeeDatabaseStorage
                 {
                     connection.Open();
 
-                    string insertQuery = "INSERT INTO employees (Name, LastName) VALUES (@name, @lastName)";
+                    string insertQuery = "INSERT INTO employees (Name, LastName,Address) VALUES (@name, @lastName, @address)";
                     using (MySqlCommand command = new MySqlCommand(insertQuery, connection))
                     {
                         command.Parameters.AddWithValue("@name", name);
                         command.Parameters.AddWithValue("@lastName", lastName);
+                        command.Parameters.AddWithValue ("address", address);   
 
                         int rowsAffected = command.ExecuteNonQuery();
                         if (rowsAffected > 0)
