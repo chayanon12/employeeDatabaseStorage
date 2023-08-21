@@ -71,7 +71,7 @@ namespace employeeDatabaseStorage
                         int rowsAffected = command.ExecuteNonQuery();
                         if (rowsAffected > 0)
                         {
-                            MessageBox.Show("Data added successfully.");
+                            MessageBox.Show("Data add successfully.");
                         }
                         else
                         {
