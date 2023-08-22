@@ -10,7 +10,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-//ADD insert name and Lastname
 namespace employeeDatabaseStorage
 {
     public partial class Form1 : Form
