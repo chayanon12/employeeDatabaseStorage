@@ -1,5 +1,6 @@
 ﻿using employeeDatabaseStorage.Data;
 using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Crypto.Generators;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,6 +21,7 @@ namespace employeeDatabaseStorage
             InitializeComponent();
             lblSucess.Visible = false;
             lblError.Visible = false;
+
 
         }
 
@@ -54,6 +56,8 @@ namespace employeeDatabaseStorage
                 string lastName = txtLastname.Text;
                 string address = txtAddress.Text;
                 string skills = txtSkills.Text;
+                string phone = txtPhone.Text; 
+                string selectedDate = dtpDate.Value.ToString("yyyy-MM-dd");
 
                 if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(lastName))
                 {
@@ -65,13 +69,15 @@ namespace employeeDatabaseStorage
                 {
                     connection.Open();
 
-                    string insertQuery = "INSERT INTO employees (Name, LastName,Address,Skills) VALUES (@name, @lastName, @address,@skills)";
+                    string insertQuery = "INSERT INTO employees (Name, LastName,Address,Skills,Phone,DateOfBirth) VALUES (@name, @lastName, @address,@skills,@phone,@dateOfBirth)";
                     using (MySqlCommand command = new MySqlCommand(insertQuery, connection))
                     {
                         command.Parameters.AddWithValue("@name", name);
                         command.Parameters.AddWithValue("@lastName", lastName);
                         command.Parameters.AddWithValue ("address", address);
                         command.Parameters.AddWithValue("skills", skills);
+                        command.Parameters.AddWithValue("Phone", phone);
+                        command.Parameters.AddWithValue("@dateOfBirth", selectedDate);
 
                         int rowsAffected = command.ExecuteNonQuery();
                         if (rowsAffected > 0)
@@ -166,11 +172,15 @@ namespace employeeDatabaseStorage
                                 string lastName = reader["LastName"].ToString();
                                 string address = reader["Address"].ToString();
                                 string skills = reader["Skills"].ToString();
+                                string phone = reader["Phone"].ToString() ;
+                                string selectedDate = reader["DateOfBirth"].ToString();
 
                                 txtName.Text = name;
                                 txtLastname.Text = lastName;
                                 txtAddress.Text = address;
                                 txtSkills.Text = skills;
+                                txtPhone.Text = phone;
+                                dtpDate.Text = selectedDate;
                             }
                         }
                     }
@@ -193,6 +203,8 @@ namespace employeeDatabaseStorage
                 string lastName = txtLastname.Text;
                 string address = txtAddress.Text;
                 string skills = txtSkills.Text; 
+                string phone = txtPhone.Text;
+                string selectedDate = dtpDate.Value.ToString("yyyy-MM-dd");
 
                 using (MySqlConnection connection = Data.Connection.dataSource())
                 {
@@ -211,6 +223,8 @@ namespace employeeDatabaseStorage
                                 string currentLastName = reader["LastName"].ToString();
                                 string currentAddress = reader["Address"].ToString();
                                 string currentSkills = reader["Skills"].ToString() ;
+                                string currentPhone = reader["Phone"].ToString();
+                                string currentDate = reader["DateOfBirth"].ToString();
 
                                 if (string.IsNullOrWhiteSpace(name))
                                 {
@@ -224,15 +238,17 @@ namespace employeeDatabaseStorage
 
                                 reader.Close();
 
-                                if (name != currentName || lastName != currentLastName || address != currentAddress || skills != currentSkills)
+                                if (name != currentName || lastName != currentLastName || address != currentAddress || skills != currentSkills || phone != currentPhone || selectedDate != currentDate)
                                 {
-                                    string updateQuery = "UPDATE employees SET Name = @name, LastName = @lastName, Address = @address, Skills = @skills  WHERE id = @idToUpdate";
+                                    string updateQuery = "UPDATE employees SET Name = @name, LastName = @lastName, Address = @address, Skills = @skills, Phone = @phone,DateOfBirth = @DateOfBirth  WHERE id = @idToUpdate";
                                     using (MySqlCommand command = new MySqlCommand(updateQuery, connection))
                                     {
                                         command.Parameters.AddWithValue("@name", name);
                                         command.Parameters.AddWithValue("@lastName", lastName);
                                         command.Parameters.AddWithValue("@address", address);
                                         command.Parameters.AddWithValue("@skills", skills);
+                                        command.Parameters.AddWithValue("@phone", phone);
+                                        command.Parameters.AddWithValue("DateOfBirth", selectedDate);
                                         command.Parameters.AddWithValue("@idToUpdate", idToUpdate);
 
                                         int rowsAffected = command.ExecuteNonQuery();
@@ -258,6 +274,8 @@ namespace employeeDatabaseStorage
                 txtLastname.Text = "";
                 txtAddress.Text = "";
                 txtSkills.Text = "";
+                txtPhone.Text = "";
+    
                 btnReload_Click(sender, e);
             }
             catch (Exception ex)
@@ -287,6 +305,19 @@ namespace employeeDatabaseStorage
                 dt.Load(reader);
                 dgvDb.DataSource = dt;
                 dgvDb.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            }
+        }
+
+        private void dtpDate_ValueChanged(object sender, EventArgs e)
+        {
+            dtpDate.CustomFormat = "dd/MM/yyyy";
+        }
+
+        private void dtpDate_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Back)
+            {
+                dtpDate.CustomFormat = " ";
             }
         }
     }
