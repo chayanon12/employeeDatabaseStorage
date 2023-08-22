@@ -52,6 +52,7 @@ namespace employeeDatabaseStorage
                 string name = txtName.Text;
                 string lastName = txtLastname.Text;
                 string address = txtAddress.Text;
+                string skills = txtSkills.Text;
 
                 if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(lastName))
                 {
@@ -63,12 +64,13 @@ namespace employeeDatabaseStorage
                 {
                     connection.Open();
 
-                    string insertQuery = "INSERT INTO employees (Name, LastName,Address) VALUES (@name, @lastName, @address)";
+                    string insertQuery = "INSERT INTO employees (Name, LastName,Address,Skills) VALUES (@name, @lastName, @address,@skills)";
                     using (MySqlCommand command = new MySqlCommand(insertQuery, connection))
                     {
                         command.Parameters.AddWithValue("@name", name);
                         command.Parameters.AddWithValue("@lastName", lastName);
-                        command.Parameters.AddWithValue ("address", address);   
+                        command.Parameters.AddWithValue ("address", address);
+                        command.Parameters.AddWithValue("skills", skills);
 
                         int rowsAffected = command.ExecuteNonQuery();
                         if (rowsAffected > 0)
@@ -162,10 +164,12 @@ namespace employeeDatabaseStorage
                                 string name = reader["Name"].ToString();
                                 string lastName = reader["LastName"].ToString();
                                 string address = reader["Address"].ToString();
+                                string skills = reader["Skills"].ToString();
 
                                 txtName.Text = name;
                                 txtLastname.Text = lastName;
                                 txtAddress.Text = address;
+                                txtSkills.Text = skills;
                             }
                         }
                     }
@@ -187,6 +191,7 @@ namespace employeeDatabaseStorage
                 string name = txtName.Text;
                 string lastName = txtLastname.Text;
                 string address = txtAddress.Text;
+                string skills = txtSkills.Text; 
 
                 using (MySqlConnection connection = Data.Connection.dataSource())
                 {
@@ -204,6 +209,7 @@ namespace employeeDatabaseStorage
                                 string currentName = reader["Name"].ToString();
                                 string currentLastName = reader["LastName"].ToString();
                                 string currentAddress = reader["Address"].ToString();
+                                string currentSkills = reader["Skills"].ToString() ;
 
                                 if (string.IsNullOrWhiteSpace(name))
                                 {
@@ -217,14 +223,15 @@ namespace employeeDatabaseStorage
 
                                 reader.Close();
 
-                                if (name != currentName || lastName != currentLastName || address != currentAddress)
+                                if (name != currentName || lastName != currentLastName || address != currentAddress || skills != currentSkills)
                                 {
-                                    string updateQuery = "UPDATE employees SET Name = @name, LastName = @lastName, Address = @address WHERE id = @idToUpdate";
+                                    string updateQuery = "UPDATE employees SET Name = @name, LastName = @lastName, Address = @address, Skills = @skills  WHERE id = @idToUpdate";
                                     using (MySqlCommand command = new MySqlCommand(updateQuery, connection))
                                     {
                                         command.Parameters.AddWithValue("@name", name);
                                         command.Parameters.AddWithValue("@lastName", lastName);
                                         command.Parameters.AddWithValue("@address", address);
+                                        command.Parameters.AddWithValue("@skills", skills);
                                         command.Parameters.AddWithValue("@idToUpdate", idToUpdate);
 
                                         int rowsAffected = command.ExecuteNonQuery();
@@ -249,6 +256,7 @@ namespace employeeDatabaseStorage
                 txtName.Text = "";
                 txtLastname.Text = "";
                 txtAddress.Text = "";
+                txtSkills.Text = "";
                 btnReload_Click(sender, e);
             }
             catch (Exception ex)

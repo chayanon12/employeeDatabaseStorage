@@ -43,6 +43,8 @@
             this.txtAddress = new System.Windows.Forms.TextBox();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
+            this.txtSkills = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDb)).BeginInit();
             this.SuspendLayout();
             // 
@@ -100,7 +102,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(286, 407);
+            this.btnAdd.Location = new System.Drawing.Point(286, 488);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(140, 70);
             this.btnAdd.TabIndex = 5;
@@ -166,7 +168,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(286, 507);
+            this.btnDelete.Location = new System.Drawing.Point(286, 588);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(140, 70);
             this.btnDelete.TabIndex = 12;
@@ -186,7 +188,7 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(452, 407);
+            this.btnEdit.Location = new System.Drawing.Point(452, 488);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(140, 70);
             this.btnEdit.TabIndex = 14;
@@ -196,7 +198,7 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(452, 507);
+            this.btnUpdate.Location = new System.Drawing.Point(452, 588);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(140, 70);
             this.btnUpdate.TabIndex = 15;
@@ -204,11 +206,34 @@
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
+            // txtSkills
+            // 
+            this.txtSkills.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSkills.Location = new System.Drawing.Point(286, 384);
+            this.txtSkills.Multiline = true;
+            this.txtSkills.Name = "txtSkills";
+            this.txtSkills.Size = new System.Drawing.Size(306, 56);
+            this.txtSkills.TabIndex = 16;
+            this.txtSkills.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.label4.Location = new System.Drawing.Point(178, 387);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(97, 32);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "Skills:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1172, 670);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.txtSkills);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.txtAddress);
@@ -250,6 +275,8 @@
         private System.Windows.Forms.TextBox txtAddress;
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.TextBox txtSkills;
+        private System.Windows.Forms.Label label4;
     }
 }
 
