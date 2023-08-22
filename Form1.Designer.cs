@@ -37,10 +37,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtAddress = new System.Windows.Forms.TextBox();
             this.dgvDb = new System.Windows.Forms.DataGridView();
             this.btnReload = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.txtAddress = new System.Windows.Forms.TextBox();
+            this.btnEdit = new System.Windows.Forms.Button();
+            this.btnUpdate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDb)).BeginInit();
             this.SuspendLayout();
             // 
@@ -98,7 +100,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(286, 418);
+            this.btnAdd.Location = new System.Drawing.Point(286, 407);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(140, 70);
             this.btnAdd.TabIndex = 5;
@@ -139,16 +141,6 @@
             this.label3.TabIndex = 8;
             this.label3.Text = "Address:";
             // 
-            // txtAddress
-            // 
-            this.txtAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAddress.Location = new System.Drawing.Point(286, 312);
-            this.txtAddress.Multiline = true;
-            this.txtAddress.Name = "txtAddress";
-            this.txtAddress.Size = new System.Drawing.Size(306, 56);
-            this.txtAddress.TabIndex = 9;
-            this.txtAddress.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // dgvDb
             // 
             this.dgvDb.AllowUserToAddRows = false;
@@ -159,12 +151,12 @@
             this.dgvDb.ReadOnly = true;
             this.dgvDb.RowHeadersWidth = 51;
             this.dgvDb.RowTemplate.Height = 24;
-            this.dgvDb.Size = new System.Drawing.Size(537, 352);
+            this.dgvDb.Size = new System.Drawing.Size(537, 398);
             this.dgvDb.TabIndex = 10;
             // 
             // btnReload
             // 
-            this.btnReload.Location = new System.Drawing.Point(432, 418);
+            this.btnReload.Location = new System.Drawing.Point(845, 569);
             this.btnReload.Name = "btnReload";
             this.btnReload.Size = new System.Drawing.Size(140, 70);
             this.btnReload.TabIndex = 11;
@@ -174,7 +166,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(140, 418);
+            this.btnDelete.Location = new System.Drawing.Point(286, 507);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(140, 70);
             this.btnDelete.TabIndex = 12;
@@ -182,15 +174,47 @@
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
+            // txtAddress
+            // 
+            this.txtAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAddress.Location = new System.Drawing.Point(286, 312);
+            this.txtAddress.Multiline = true;
+            this.txtAddress.Name = "txtAddress";
+            this.txtAddress.Size = new System.Drawing.Size(306, 56);
+            this.txtAddress.TabIndex = 13;
+            this.txtAddress.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // btnEdit
+            // 
+            this.btnEdit.Location = new System.Drawing.Point(452, 407);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(140, 70);
+            this.btnEdit.TabIndex = 14;
+            this.btnEdit.Text = "Edit";
+            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Location = new System.Drawing.Point(452, 507);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(140, 70);
+            this.btnUpdate.TabIndex = 15;
+            this.btnUpdate.Text = "Update";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1172, 541);
+            this.ClientSize = new System.Drawing.Size(1172, 670);
+            this.Controls.Add(this.btnUpdate);
+            this.Controls.Add(this.btnEdit);
+            this.Controls.Add(this.txtAddress);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnReload);
             this.Controls.Add(this.dgvDb);
-            this.Controls.Add(this.txtAddress);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -220,10 +244,12 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtAddress;
         private System.Windows.Forms.DataGridView dgvDb;
         private System.Windows.Forms.Button btnReload;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.TextBox txtAddress;
+        private System.Windows.Forms.Button btnEdit;
+        private System.Windows.Forms.Button btnUpdate;
     }
 }
 

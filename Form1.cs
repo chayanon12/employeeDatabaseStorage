@@ -20,7 +20,6 @@ namespace employeeDatabaseStorage
             InitializeComponent();
             lblSucess.Visible = false;
             lblError.Visible = false;
-            dgvDb.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
         private void btnCheck_Click(object sender, EventArgs e)
@@ -133,6 +132,123 @@ namespace employeeDatabaseStorage
                     }
                 }
 
+                btnReload_Click(sender, e);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message);
+            }
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int selectedRowIndex = dgvDb.SelectedCells[0].RowIndex;
+                int idToUpdate = Convert.ToInt32(dgvDb.Rows[selectedRowIndex].Cells["id"].Value);
+
+                using (MySqlConnection connection = Data.Connection.dataSource())
+                {
+                    connection.Open();
+
+                    string selectQuery = "SELECT * FROM employees WHERE id = @idToUpdate";
+                    using (MySqlCommand selectCommand = new MySqlCommand(selectQuery, connection))
+                    {
+                        selectCommand.Parameters.AddWithValue("@idToUpdate", idToUpdate);
+                        using (MySqlDataReader reader = selectCommand.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                string name = reader["Name"].ToString();
+                                string lastName = reader["LastName"].ToString();
+                                string address = reader["Address"].ToString();
+
+                                txtName.Text = name;
+                                txtLastname.Text = lastName;
+                                txtAddress.Text = address;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message);
+            }
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int selectedRowIndex = dgvDb.SelectedCells[0].RowIndex;
+                int idToUpdate = Convert.ToInt32(dgvDb.Rows[selectedRowIndex].Cells["id"].Value);
+
+                string name = txtName.Text;
+                string lastName = txtLastname.Text;
+                string address = txtAddress.Text;
+
+                using (MySqlConnection connection = Data.Connection.dataSource())
+                {
+                    connection.Open();
+
+                    string selectQuery = "SELECT * FROM employees WHERE id = @idToUpdate";
+                    using (MySqlCommand selectCommand = new MySqlCommand(selectQuery, connection))
+                    {
+                        selectCommand.Parameters.AddWithValue("@idToUpdate", idToUpdate);
+
+                        using (MySqlDataReader reader = selectCommand.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                string currentName = reader["Name"].ToString();
+                                string currentLastName = reader["LastName"].ToString();
+                                string currentAddress = reader["Address"].ToString();
+
+                                if (string.IsNullOrWhiteSpace(name))
+                                {
+                                    name = currentName;
+                                }
+
+                                if (string.IsNullOrWhiteSpace(lastName))
+                                {
+                                    lastName = currentLastName;
+                                }
+
+                                reader.Close();
+
+                                if (name != currentName || lastName != currentLastName || address != currentAddress)
+                                {
+                                    string updateQuery = "UPDATE employees SET Name = @name, LastName = @lastName, Address = @address WHERE id = @idToUpdate";
+                                    using (MySqlCommand command = new MySqlCommand(updateQuery, connection))
+                                    {
+                                        command.Parameters.AddWithValue("@name", name);
+                                        command.Parameters.AddWithValue("@lastName", lastName);
+                                        command.Parameters.AddWithValue("@address", address);
+                                        command.Parameters.AddWithValue("@idToUpdate", idToUpdate);
+
+                                        int rowsAffected = command.ExecuteNonQuery();
+                                        if (rowsAffected > 0)
+                                        {
+                                            MessageBox.Show("Data updated successfully.");
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("Data update failed.");
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("No changes were made.");
+                                }
+                            }
+                        }
+                    }
+                }
+                txtName.Text = "";
+                txtLastname.Text = "";
+                txtAddress.Text = "";
                 btnReload_Click(sender, e);
             }
             catch (Exception ex)
