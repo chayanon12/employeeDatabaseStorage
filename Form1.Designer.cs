@@ -38,6 +38,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txtAddress = new System.Windows.Forms.TextBox();
+            this.dgvDb = new System.Windows.Forms.DataGridView();
+            this.btnReload = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDb)).BeginInit();
             this.SuspendLayout();
             // 
             // btnCheck
@@ -94,7 +98,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(390, 422);
+            this.btnAdd.Location = new System.Drawing.Point(286, 418);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(140, 70);
             this.btnAdd.TabIndex = 5;
@@ -145,11 +149,47 @@
             this.txtAddress.TabIndex = 9;
             this.txtAddress.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // dgvDb
+            // 
+            this.dgvDb.AllowUserToAddRows = false;
+            this.dgvDb.AllowUserToDeleteRows = false;
+            this.dgvDb.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDb.Location = new System.Drawing.Point(623, 165);
+            this.dgvDb.Name = "dgvDb";
+            this.dgvDb.ReadOnly = true;
+            this.dgvDb.RowHeadersWidth = 51;
+            this.dgvDb.RowTemplate.Height = 24;
+            this.dgvDb.Size = new System.Drawing.Size(537, 352);
+            this.dgvDb.TabIndex = 10;
+            // 
+            // btnReload
+            // 
+            this.btnReload.Location = new System.Drawing.Point(432, 418);
+            this.btnReload.Name = "btnReload";
+            this.btnReload.Size = new System.Drawing.Size(140, 70);
+            this.btnReload.TabIndex = 11;
+            this.btnReload.Text = "Reload";
+            this.btnReload.UseVisualStyleBackColor = true;
+            this.btnReload.Click += new System.EventHandler(this.btnReload_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(140, 418);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(140, 70);
+            this.btnDelete.TabIndex = 12;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(824, 529);
+            this.ClientSize = new System.Drawing.Size(1172, 541);
+            this.Controls.Add(this.btnDelete);
+            this.Controls.Add(this.btnReload);
+            this.Controls.Add(this.dgvDb);
             this.Controls.Add(this.txtAddress);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -163,6 +203,7 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Connection MySQL";
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDb)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -180,6 +221,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtAddress;
+        private System.Windows.Forms.DataGridView dgvDb;
+        private System.Windows.Forms.Button btnReload;
+        private System.Windows.Forms.Button btnDelete;
     }
 }
 

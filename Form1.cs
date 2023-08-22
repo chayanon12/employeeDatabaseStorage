@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using employeeDatabaseStorage.Data;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,6 +21,7 @@ namespace employeeDatabaseStorage
             InitializeComponent();
             lblSucess.Visible = false;
             lblError.Visible = false;
+            dgvDb.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
         private void btnCheck_Click(object sender, EventArgs e)
@@ -81,6 +83,7 @@ namespace employeeDatabaseStorage
                         }
                     }
                 }
+                btnReload_Click(sender, e);
             }
             catch (Exception ex)
             {
@@ -88,5 +91,55 @@ namespace employeeDatabaseStorage
             }
         }
 
+        private void btnReload_Click(object sender, EventArgs e)
+        {
+            using (MySqlConnection connection = Data.Connection.dataSource())
+            {
+                connection.Open();
+                string query = "select * from employees";
+                MySqlCommand cmd = new MySqlCommand(query,connection);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                DataTable dt = new DataTable();
+                dt.Load(reader);
+                dgvDb.DataSource = dt;
+                dgvDb.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int selectedRowIndex = dgvDb.SelectedCells[0].RowIndex;
+                int idToDelete = Convert.ToInt32(dgvDb.Rows[selectedRowIndex].Cells["id"].Value);
+
+                using (MySqlConnection connection = Data.Connection.dataSource())
+                {
+                    connection.Open();
+
+                    string deleteQuery = "DELETE FROM employees WHERE id = @idToDelete";
+                    using (MySqlCommand command = new MySqlCommand(deleteQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@idToDelete", idToDelete);
+
+                        int rowsAffected = command.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Data deleted successfully.");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Data deletion failed.");
+                        }
+                    }
+                }
+
+                btnReload_Click(sender, e);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message);
+            }
+        }
     }
 }
