@@ -20,6 +20,7 @@ namespace employeeDatabaseStorage
             InitializeComponent();
             lblSucess.Visible = false;
             lblError.Visible = false;
+
         }
 
         private void btnCheck_Click(object sender, EventArgs e)
@@ -262,6 +263,30 @@ namespace employeeDatabaseStorage
             catch (Exception ex)
             {
                 MessageBox.Show("An error occurred: " + ex.Message);
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using(MySqlConnection connection = Data.Connection.dataSource())
+            {
+                connection.Open();
+                string query = "select * from employees";
+                if (!string.IsNullOrWhiteSpace(txtSearch.Text))
+                {
+                    query += " WHERE Name LIKE @searchQuery COLLATE utf8mb4_unicode_ci OR LastName LIKE @searchQuery COLLATE utf8mb4_unicode_ci OR Address LIKE @searchQuery COLLATE utf8mb4_unicode_ci OR Skills LIKE @searchQuery COLLATE utf8mb4_unicode_ci";
+
+
+                }
+
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@searchQuery", "%" + txtSearch.Text + "%");
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+                DataTable dt = new DataTable();
+                dt.Load(reader);
+                dgvDb.DataSource = dt;
+                dgvDb.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             }
         }
     }
